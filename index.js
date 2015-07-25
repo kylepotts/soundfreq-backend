@@ -1,6 +1,8 @@
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var log = require('tablog');
+
 
 server.listen(process.env.PORT || 3000);
 
@@ -10,5 +12,5 @@ app.get('/', function (req, res) {
 
 
 io.on('connection',function(socket){
-	console.log('user connected');
+	log.info('user connected');
 })
