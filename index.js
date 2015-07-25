@@ -18,6 +18,10 @@ io.on('connection',function(socket){
 	log.info('user connected');
 	numConnections+=1;
 
+	socket.on('enqueue', function(data){
+		log.info("enqueue " +JSON.stringify(data));
+	});
+
 	socket.on('play',function(){
 		log.info('user pressed play');
 		var now =moment();
