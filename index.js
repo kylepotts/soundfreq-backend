@@ -1,6 +1,7 @@
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var moment = require('moment');
 var log = require('tablog');
 
 var numConnections = 0;
@@ -19,7 +20,8 @@ io.on('connection',function(socket){
 
 	socket.on('play',function(){
 		log.info('user pressed play');
-		socket.broadcast.emit('play',"user pressed play");
+		var now =moment();
+		io.emit('play',{time:now});
 		log.info('after emit');
 	});
 
