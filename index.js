@@ -19,6 +19,7 @@ io.on('connection',function(socket){
 
 	socket.on('play',function(){
 		log.info('user pressed play');
+		socket.broadcast.emit('play',"user pressed play");
 	});
 
 	socket.on('pause',function(){
