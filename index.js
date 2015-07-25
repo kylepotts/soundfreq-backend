@@ -3,6 +3,8 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var log = require('tablog');
 
+var numConnections = 0;
+
 
 server.listen(process.env.PORT || 3000);
 
@@ -13,4 +15,13 @@ app.get('/', function (req, res) {
 
 io.on('connection',function(socket){
 	log.info('user connected');
+	numConnections+=1;
+
+	socket.on('play',function(){
+		log.info('user pressed play');
+	});
+
+	socket.on('pause',function(){
+		log.info('user pressed pause');
+	})
 })
