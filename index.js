@@ -5,6 +5,7 @@ var moment = require('moment');
 var log = require('tablog');
 
 var numConnections = 0;
+var queue = []
 
 
 server.listen(process.env.PORT || 3000);
@@ -20,12 +21,15 @@ io.on('connection',function(socket){
 
 	socket.on('enqueue', function(data){
 		log.info("enqueue " +JSON.stringify(data));
+		queue.push(data);
 	});
 
 	socket.on('play',function(){
 		log.info('user pressed play');
 		var now =moment();
 		io.emit('play',{time:now.add(700,'milliseconds')});
+		var item = getItemToPlay();
+		log.info("item to return is " +item);
 		log.info('after emit');
 	});
 
@@ -34,3 +38,10 @@ io.on('connection',function(socket){
 		socket.broadcast.emit('pause', 'user pressed pause')
 	})
 })
+
+function getItemToPlay(){
+	var item = queue[0];
+	queue = queue.shift();
+	log.info("Now queue is " + JSON.stringify(queue));
+	return item
+}
