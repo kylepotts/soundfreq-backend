@@ -25,6 +25,6 @@ io.on('connection',function(socket){
 
 	socket.on('pause',function(){
 		log.info('user pressed pause');
-		socket.broadcast.emot('pause', 'user pressed pause')
+		socket.broadcast.emit('pause', 'user pressed pause')
 	})
 })
