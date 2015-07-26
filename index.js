@@ -18,6 +18,7 @@ app.get('/', function (req, res) {
 io.on('connection',function(socket){
 	log.info('user connected');
 	numConnections+=1;
+	log.info('numConnections='+ numConnections);
 
 	socket.on('enqueue', function(data){
 		log.info("enqueue " +JSON.stringify(data));
@@ -27,9 +28,9 @@ io.on('connection',function(socket){
 	socket.on('play',function(){
 		log.info('user pressed play');
 		var now =moment();
-		io.emit('play',{time:now.add(700,'milliseconds')});
 		var item = getItemToPlay();
 		log.info("item to return is " +item);
+		io.emit('play',{time:now.add(700,'milliseconds'), fileUrl:item});
 		log.info('after emit');
 	});
 
