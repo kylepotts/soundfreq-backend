@@ -40,11 +40,13 @@ io.on('connection',function(socket){
 
 	socket.on('next',function(){
 		log.info('next pressed');
-		socket.broadcast.emit('next', "user pressed next");
+		var now =moment();
+		io.emit('next',{time:now.add(700,'milliseconds')});
 	});
 
 		socket.on('prev',function(){
 		log.info('prev pressed');
-		socket.broadcast.emit('prev', "user pressed prev");
+				var now =moment();
+		io.emit('prev',{time:now.add(700,'milliseconds')});
 	});
 })
