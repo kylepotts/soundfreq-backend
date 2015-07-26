@@ -20,10 +20,16 @@ io.on('connection',function(socket){
 	numConnections+=1;
 	log.info('numConnections='+ numConnections);
 
+	socket.on('enqueue',function(data){
+		log.info('enqueue ' + data);
+		queue.push(data);
+	});
 
 	socket.on('play',function(){
 		log.info('user pressed play');
 		var now =moment();;
+		var item = getItemToPlay();
+		log.info('item ' +item);
 		io.emit('play',{time:now.add(700,'milliseconds')});
 		log.info('after emit');
 	});
