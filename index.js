@@ -22,7 +22,7 @@ io.on('connection',function(socket){
 
 	socket.on('disconnect',function(){
 		numConnections-=1;
-		log.info('User Disconnected numConnections='+ numConnections);
+		log.info('User numConnections Disconnected='+ numConnections);
 
 	});
 
@@ -33,10 +33,10 @@ io.on('connection',function(socket){
 
 	socket.on('play',function(){
 		log.info('user pressed play');
-		var now =moment();;
+		var now =moment();
 		var item = getItemToPlay();
 		log.info('item ' +item);
-		io.emit('play',{time:now.add(700,'milliseconds'), fileUrl:item});
+		socket.broadcast.emit('play',{time:now.add(700,'milliseconds'), fileUrl:item});
 		log.info('after emit');
 	});
 
@@ -44,6 +44,16 @@ io.on('connection',function(socket){
 		log.info('user pressed pause');
 		socket.broadcast.emit('pause', 'user pressed pause')
 	})
+
+	socket.on('next',function(){
+		log.info('next pressed');
+		socket.broadcast.emit('next', "user pressed next");
+	});
+
+		socket.on('prev',function(){
+		log.info('prev pressed');
+		socket.broadcast.emit('prev', "user pressed prev");
+	});
 })
 
 function getItemToPlay(){
