@@ -5,7 +5,6 @@ var moment = require('moment');
 var log = require('tablog');
 
 var numConnections = 0;
-var queue = [];
 
 
 server.listen(process.env.PORT || 3000);
@@ -18,18 +17,11 @@ app.get('/', function (req, res) {
 io.on('connection',function(socket){
 	log.info('user connected');
 	numConnections+=1;
-	log.info('numConnections='+ numConnections);
-
-	socket.on('disconnect',function(){
-		numConnections-=1;
-		log.info('User numConnections Disconnected='+ numConnections);
-
-	});
 
 	socket.on('play',function(){
 		log.info('user pressed play');
 		var now =moment();
-		io.emit('play',{time:now.add(1000,'milliseconds')});
+		io.emit('play',{time:now.add(700,'milliseconds')});
 		log.info('after emit');
 	});
 
@@ -37,16 +29,4 @@ io.on('connection',function(socket){
 		log.info('user pressed pause');
 		socket.broadcast.emit('pause', 'user pressed pause')
 	})
-
-	socket.on('next',function(){
-		log.info('next pressed');
-		var now =moment();
-		io.emit('next',{time:now.add(1000,'milliseconds')});
-	});
-
-		socket.on('prev',function(){
-		log.info('prev pressed');
-		var now =moment();
-		io.emit('prev',{time:now.add(1000,'milliseconds')});
-	});
 })
