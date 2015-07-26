@@ -20,6 +20,12 @@ io.on('connection',function(socket){
 	numConnections+=1;
 	log.info('numConnections='+ numConnections);
 
+	socket.on('disconnect',function(){
+		numConnections-=1;
+		log.info('User Disconnected numConnections='+ numConnections);
+
+	});
+
 	socket.on('enqueue',function(data){
 		log.info('enqueue ' + data);
 		queue.push(data);
