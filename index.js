@@ -29,7 +29,7 @@ io.on('connection',function(socket){
 	socket.on('play',function(){
 		log.info('user pressed play');
 		var now =moment();
-		socket.broadcast.emit('play',{time:now.add(700,'milliseconds')});
+		io.emit('play',{time:now.add(700,'milliseconds')});
 		log.info('after emit');
 	});
 
