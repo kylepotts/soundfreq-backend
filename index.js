@@ -5,7 +5,7 @@ var moment = require('moment');
 var log = require('tablog');
 
 var numConnections = 0;
-var queue = []
+var queue = new Array();
 
 
 server.listen(process.env.PORT || 3000);
