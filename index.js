@@ -24,7 +24,7 @@ io.on('connection',function(socket){
 	socket.on('play',function(){
 		log.info('user pressed play');
 		var now =moment();;
-		io.emit('play',{time:now.add(700,'milliseconds'), fileUrl:item});
+		io.emit('play',{time:now.add(700,'milliseconds')});
 		log.info('after emit');
 	});
 
