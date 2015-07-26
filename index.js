@@ -42,7 +42,7 @@ io.on('connection',function(socket){
 
 function getItemToPlay(){
 	var item = queue[0];
-	queue = queue.shift();
+	queue.shift();
 	log.info("Now queue is " + JSON.stringify(queue));
 	return item
 }
