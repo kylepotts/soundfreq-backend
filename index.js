@@ -30,7 +30,7 @@ io.on('connection',function(socket){
 		var now =moment();;
 		var item = getItemToPlay();
 		log.info('item ' +item);
-		io.emit('play',{time:now.add(700,'milliseconds')});
+		io.emit('play',{time:now.add(700,'milliseconds',fileUrl:item)});
 		log.info('after emit');
 	});
 
