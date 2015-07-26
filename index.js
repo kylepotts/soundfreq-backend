@@ -18,6 +18,18 @@ io.on('connection',function(socket){
 	log.info('user connected');
 	numConnections+=1;
 
+	socket.on('next', function(){
+		log.info("pressed next");
+		var now =moment();
+		io.emit('next',{time:now.add(700,'milliseconds')});
+	});
+
+	socket.on('prev', function(){
+		log.info("pressed prev");
+		var now =moment();
+		io.emit('prev',{time:now.add(700,'milliseconds')});
+	});
+
 	socket.on('play',function(){
 		log.info('user pressed play');
 		var now =moment();
