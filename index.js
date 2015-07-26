@@ -29,7 +29,7 @@ io.on('connection',function(socket){
 	socket.on('play',function(){
 		log.info('user pressed play');
 		var now =moment();
-		io.emit('play',{time:now.add(600,'milliseconds')});
+		io.emit('play',{time:now.add(1000,'milliseconds')});
 		log.info('after emit');
 	});
 
@@ -41,12 +41,12 @@ io.on('connection',function(socket){
 	socket.on('next',function(){
 		log.info('next pressed');
 		var now =moment();
-		io.emit('next',{time:now.add(600,'milliseconds')});
+		io.emit('next',{time:now.add(1000,'milliseconds')});
 	});
 
 		socket.on('prev',function(){
 		log.info('prev pressed');
 		var now =moment();
-		io.emit('prev',{time:now.add(600,'milliseconds')});
+		io.emit('prev',{time:now.add(1000,'milliseconds')});
 	});
 })
