@@ -26,17 +26,10 @@ io.on('connection',function(socket){
 
 	});
 
-	socket.on('enqueue',function(data){
-		log.info('enqueue ' + data);
-		queue.push(data);
-	});
-
 	socket.on('play',function(){
 		log.info('user pressed play');
 		var now =moment();
-		var item = getItemToPlay();
-		log.info('item ' +item);
-		socket.broadcast.emit('play',{time:now.add(700,'milliseconds'), fileUrl:item});
+		socket.broadcast.emit('play',{time:now.add(700,'milliseconds')});
 		log.info('after emit');
 	});
 
@@ -55,10 +48,3 @@ io.on('connection',function(socket){
 		socket.broadcast.emit('prev', "user pressed prev");
 	});
 })
-
-function getItemToPlay(){
-	var item = queue[0];
-	queue.shift();
-	log.info("Now queue is " + JSON.stringify(queue));
-	return item
-}
